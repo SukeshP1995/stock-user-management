@@ -1,0 +1,50 @@
+
+<div class="main-div">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div class="login-box-header">
+        Generate token
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <form #f="ngForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline"  style="width: 25em;">
+          <mat-label>Enter phone number</mat-label>
+          <ngx-mat-intl-tel-input
+            [preferredCountries]="['us', 'in']"
+            [enablePlaceholder]="true"
+            [enableSearch]="true"
+            name="phone"
+            formControlName="phoneNo"></ngx-mat-intl-tel-input>
+          <mat-error *ngIf="f.form.controls['phone']?.errors?.required">Required Field</mat-error>
+          <mat-error *ngIf="f.form.controls['phone']?.errors?.validatePhoneNumber">Invalid Number</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field hintLabel="User name" appearance="outline" style="width: 25em;">
+          <mat-label>Enter user name</mat-label>
+          <input matInput formControlName="userName" maxlength="20" placeholder="John Doe">
+          <mat-hint align="end">{{f.form.controls['userName']?.value?.length || 0}}/20</mat-hint>
+          <mat-error *ngIf="f.form.controls['userName']?.errors?.required">Required Field</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-checkbox color="primary" formControlName="grantAgeWise">Grant age wise</mat-checkbox>
+        <br>
+        <mat-checkbox color="primary" formControlName="grantUpload">Grant upload</mat-checkbox>
+        <br>
+        <mat-checkbox color="primary" formControlName="grantEdit">Grant edit</mat-checkbox>
+        <br>
+        <mat-checkbox color="primary" formControlName="grantSale">Grant sale</mat-checkbox>
+        <br>
+        <button mat-raised-button color="primary" type="submit">submit</button>
+      </form>
+      
+    </mat-card-content>
+
+    <div *ngIf="code">
+      <span>{{ code }}</span>
+      <button mat-icon-button aria-label="copy to clipboard" [cdkCopyToClipboard]="code">
+        <mat-icon>file_copy</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>
